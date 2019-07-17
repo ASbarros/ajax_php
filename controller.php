@@ -6,9 +6,14 @@ if (isset($_POST[['Enviar']])) {
     if (in_array($extencao, $formatosPermitidos)) {
         $pasta = 'arquivos/';
         $temporario = $_FILES['arquivo']['tmp_name'];
-        $novoNome = uniqid().$extencao;
+        $novoNome = uniqid().".$extencao";
+        if (move_uploaded_file($temporario, $pasta.$novoNome)) {
+            $mensagem = 'Upload feito com sucesso!';
+        } else {
+            $mensagem = 'Erro, não foi possivel fazer o upload';
+        }
     } else {
-        $mensagem[] = 'Formato inválido!';
+        $mensagem = 'Formato inválido!';
     }
 }
 $files = $_FILES['files'];
